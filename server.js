@@ -16,20 +16,21 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/profile', require('./routes/profile'));
 
 // Handle production
-
+/*
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 }
 app.get('*', (request, response) => {
     response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
-//if (process.env.NODE_ENV === 'production') {
-// Set static folder
-//  app.use(express.static(__dirname + '/public/'));
+*/
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static(__dirname + 'client/public'));
 
-// Handle SPA
-// app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
-//}
+    // Handle SPA
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/client/public/index.html'));
+}
 
 
 const port = process.env.PORT || 8000;
