@@ -1,7 +1,7 @@
 {
   "name": "cs_tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "An App for checking CSGO stats",
   "main": "server.js",
   "scripts": {
     "start": "node server",
