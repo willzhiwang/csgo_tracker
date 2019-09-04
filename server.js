@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const path = require('path');
 
 // Load env
 dotenv.config({ path: './config.env' });
@@ -16,22 +17,15 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/profile', require('./routes/profile'));
 
 // Handle production
-/*
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-}
-app.get('*', (request, response) => {
-    response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
-*/
+// Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
     // Set static folder
-    app.use(express.static(__dirname + 'client/public'));
+    app.use(express.static('client/build'));
 
-    // Handle SPA
-    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/client/public/index.html'));
+    app.get('*', (req, res) =>
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    );
 }
-
 
 const port = process.env.PORT || 8000;
 
