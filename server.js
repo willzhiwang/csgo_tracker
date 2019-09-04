@@ -17,7 +17,12 @@ app.use('/api/v1/profile', require('./routes/profile'));
 
 // Handle production
 
-
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+}
+app.get('*', (request, response) => {
+    response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 //if (process.env.NODE_ENV === 'production') {
 // Set static folder
 //  app.use(express.static(__dirname + '/public/'));
