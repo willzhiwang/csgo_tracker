@@ -48,3 +48,31 @@
   opacity: 0.01;
   transition: opacity 1000ms ease-in;
 }
+li {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 1rem;
+  margin-bottom: 0.7rem;
+  border-radius: 10px;
+}
+ul {
+  list-style-type: none;
+}
+li p {
+  font-size: 2rem;
+}
+li span {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 2px;
+  padding: 2px;
+  box-sizing: border-box;
+}
+.profile-photo {
+  width: 200px;
+  margin-right: 0rem;
+}

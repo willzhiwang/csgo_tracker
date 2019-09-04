@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Row, Col } from 'reactstrap';
+import { Button, Container, Col, Row } from 'reactstrap';
 import axios from 'axios';
+import '../App.css';
 
 export class Profile extends Component {
 
@@ -45,14 +46,10 @@ export class Profile extends Component {
                 this.headshotPct = this.stats.headshotPct.displayValue;
 
 
-
-
             }).catch(err => {
                 this.loading = false;
-
                 this.error = err.response.data.message;
                 console.log(this.error);
-
             }
             );
         this.setState({
@@ -60,50 +57,116 @@ export class Profile extends Component {
 
     }
 
-
     render() {
         let content;
-        if (this.loading == true) {
+        if (this.loading === true) {
             content = <span><h2 style={textstyle}> Loading... </h2></span>;
         }
         else if (this.error) {
             content = <span><h2 style={textstyle}> {this.error}</h2></span>;
         }
-        else if (!this.error && this.loading == false) {
-            content = <span style={textstyle}>
-                <h1>Profile</h1>
+        else if (!this.error && this.loading === false) {
 
-                <h5>Your steam id:  {this.props.match.params.id}</h5>
+            content =
+                <Container>
+                    <div style={textstyle} >
+                        <h5>Steam ID:  {this.props.match.params.id}</h5>
+                        <Row>
+                            <Col xs="6" sm="4">
+                                <img src={this.imageurl} alt class="profile-photo" />
+                                <h2>{this.userName}</h2>
+                            </Col>
+                            <Col>
+                                <div class="grid">
+                                    <ul>
+                                        <li>
+                                            <h5>K/D:</h5>
+                                            <p>{this.kd}</p>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            <h5>Kills:</h5>
+                                            <p>{this.kills}</p>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            <h5>deaths:</h5>
+                                            <p>{this.deaths}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <div class="grid">
+                                    <ul>
+                                        <li>
+                                            <h5>Time Played:  {this.timePlayed}</h5>
+                                            <h5>mvp:  {this.mvp}</h5>
+                                        </li>
+                                    </ul>
 
-                <h5>Your steam Profile Name:  {this.userName}</h5>
-                <img src={this.imageurl} />
+                                    <ul>
+                                        <li>
+                                            <h5>Wins: {this.wins}</h5>
+                                            <h5>Losses: {this.losses}</h5>
+                                            <h5>Win Lose Percentage: {this.wlPercentage}</h5>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            <h5>Matches Played: {this.matchesPlayed}</h5>
+                                            <h5>Rounds played: {this.roundsPlayed}</h5>
+                                            <h5>Rounds Won: {this.roundsWon}</h5>
+                                        </li>
+                                    </ul>
 
-                <h5>Time Played:  {this.timePlayed}</h5>
-                <h5>mvp:  {this.mvp}</h5>
-                <h5>kills:  {this.kills}</h5>
-                <h5>deaths:  {this.deaths}</h5>
-                <h5>K/D: {this.kd}</h5>
+                                </div >
+                            </Col>
+                        </Row >
 
-                <h5>Damage: {this.damage}</h5>
-                <h5>Headshots: {this.headshots}</h5>
-                <h5>Headshots Percentage: {this.headshotPct}</h5>
-                <h5>Shots Accuracy: {this.shotsAccuracy}</h5>
-                <h5>Sniper Kills: {this.snipersKilled}</h5>
+                        <Row>
+                            <Col>
+                                <div class="grid">
 
-                <h5>Bombs Planted: {this.bombsPlanted}</h5>
-                <h5>Bombs Defused: {this.bombsDefused}</h5>
-                <h5>Money Earned: ${this.moneyEarned}</h5>
-                <h5>Hostage Rescued: {this.hostagesRescued}</h5>
+                                    <ul>
+                                        <li>
+                                            <h5>Damage: {this.damage}</h5>
+                                            <h5>Headshots: {this.headshots}</h5>
+                                            <h5>Headshots Percentage: {this.headshotPct}</h5>
+                                        </li>
+                                    </ul>
 
-                <h5>Wins: {this.wins}</h5>
-                <h5>Losses: {this.losses}</h5>
-                <h5>Matches Played: {this.matchesPlayed}</h5>
+                                    <ul>
+                                        <li>
+                                            <h5>Shots Accuracy: {this.shotsAccuracy}</h5>
+                                            <h5>Sniper Kills: {this.snipersKilled}</h5>
+                                        </li>
+                                    </ul>
 
-                <h5>Rounds played: {this.roundsPlayed}</h5>
-                <h5>Rounds Won: {this.roundsWon}</h5>
-                <h5>Win Lose Percentage: {this.wlPercentage}</h5>
+                                    <ul>
+                                        <li>
+                                            <h5>Bombs Planted: {this.bombsPlanted}</h5>
+                                            <h5>Bombs Defused: {this.bombsDefused}</h5>
+                                        </li>
+                                    </ul>
 
-            </span>
+                                    <ul>
+                                        <li>
+                                            <h5>Money Earned: ${this.moneyEarned}</h5>
+                                            <h5>Hostage Rescued: {this.hostagesRescued}</h5>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </Col>
+                        </Row>
+
+                    </div >
+                </Container>
         }
         return (
             <div>
@@ -116,8 +179,14 @@ export class Profile extends Component {
     }
 }
 const textstyle = {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
     color: 'white',
-    textShadow: '0px 0px 2px black'
+    textShadow: '0px 0px 2px black',
+    maxWidth: '1000px',
+    margin: '1rem auto',
+    padding: '2rem 1.5rem',
+    borderRadius: '20px',
+    fontFamily: "Arial"
 }
 
 export default Profile
